@@ -1,4 +1,7 @@
 package org.grails.plugins.sanitizer
+
+import grails.util.Holders
+
 /**
  * Codec that allows you to sanitize a String
  * <br />def clean = myText.encodeAsSanitizedMarkup()
@@ -9,7 +12,6 @@ package org.grails.plugins.sanitizer
 class SanitizedMarkupCodec {
 
 	def markupSanitizerService
-    def grailsApplication
 
 	/**
 	 * Encode a string as sanitized Markup
@@ -17,12 +19,12 @@ class SanitizedMarkupCodec {
 	def encode = { dirtyMarkup ->
 
 		if(!markupSanitizerService){
-			markupSanitizerService = grailsApplication.mainContext.getBean("markupSanitizerService")
+			markupSanitizerService = Holders.grailsApplication.mainContext.getBean("markupSanitizerService")
 		}
 
 		MarkupSanitizerResult result = markupSanitizerService.sanitize(dirtyMarkup)
 
-		if(result.isInvalidMarkup() && !grailsApplication.config?.sanitizer?.trustSanitizer){
+		if(result.isInvalidMarkup() && !Holders.config?.sanitizer?.trustSanitizer){
 			// just return empty string...
 			return ""
 		}else{

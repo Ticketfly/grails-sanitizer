@@ -1,13 +1,13 @@
 package org.grails.plugins.sanitizer
 
+import grails.util.Holders
+
 /**
  * A service for sanitizing Html Text in a string.
  * @see http://www.owasp.org/index.php/AntiSamy
  * @author daniel
  */
 class MarkupSanitizerService {
-
-	def grailsApplication
 
 	protected MarkupSanitizer markupSanitizer
 
@@ -17,7 +17,7 @@ class MarkupSanitizerService {
 	MarkupSanitizer getSanitizer(){
 		if(!markupSanitizer){
 			markupSanitizer = new AntiSamyMarkupSanitizer(
-				grailsApplication.mainContext.getResource( File.separator + "WEB-INF" + File.separator + "antisamy-policy.xml"))
+                    Holders.grailsApplication.mainContext.getResource( File.separator + "WEB-INF" + File.separator + "antisamy-policy.xml"))
 		}
 		return markupSanitizer
 	}

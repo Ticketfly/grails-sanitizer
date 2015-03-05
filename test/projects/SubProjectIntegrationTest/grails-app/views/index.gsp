@@ -1,3 +1,4 @@
+<%@ page import="grails.util.Holders" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -90,10 +91,10 @@
 				<li>Groovy version: ${GroovySystem.getVersion()}</li>
 				<li>JVM version: ${System.getProperty('java.version')}</li>
 				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
+				<li>Controllers: ${Holders.grailsApplication.controllerClasses.size()}</li>
+				<li>Domains: ${Holders.grailsApplication.domainClasses.size()}</li>
+				<li>Services: ${Holders.grailsApplication.serviceClasses.size()}</li>
+				<li>Tag Libraries: ${Holders.grailsApplication.tagLibClasses.size()}</li>
 			</ul>
 			<h1>Installed Plugins</h1>
 			<ul>
@@ -112,7 +113,7 @@
 			<div id="controller-list" role="navigation">
 				<h2>Available Controllers:</h2>
 				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+					<g:each var="c" in="${Holders.grailsApplication.controllerClasses.sort { it.fullName } }">
 						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
 					</g:each>
 				</ul>
